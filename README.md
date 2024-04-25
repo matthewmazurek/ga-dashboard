@@ -43,7 +43,7 @@ To run the dashboard, execute:
 ```bash
 streamlit run app.py [checkpoint_directory]
 ```
-If a checkpoint directory is not provided, then the dashboard will look for checkpoints in `~/perturbation_screen`.
+If a checkpoint directory is not provided, then the dashboard will look for checkpoints in the home directory.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
