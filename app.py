@@ -2,6 +2,7 @@ import glob
 import os
 import pickle
 import pprint
+import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeAlias
 
 import matplotlib as mpl
@@ -405,8 +406,13 @@ def main():
         # (['genes', 'expr_vals', 'mtx', 'score'])
 
 
-data = None
-ROOT_DIR: str = '/Users/matthewmazurek/Library/CloudStorage/GoogleDrive-matthewmazurek@gmail.com/My Drive/perturbation_screen'
+# ROOT_DIR: str = '/Users/matthewmazurek/Library/CloudStorage/GoogleDrive-matthewmazurek@gmail.com/My Drive/perturbation_screen'
+ROOT_DIR: str
+if len(sys.argv) > 1:
+    ROOT_DIR = sys.argv[1]
+else:
+    home_directory = os.path.expanduser('~')
+    ROOT_DIR = home_directory
 
 if __name__ == '__main__':
     main()

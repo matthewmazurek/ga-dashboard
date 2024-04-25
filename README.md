@@ -15,9 +15,9 @@ This dashboard visualizes various metrics and results from a genetic algorithm a
 
 ## Installation
 
-Clone the repository:
+Clone the repository with GitHub CLI:
 ```bash
-gh repo clone matthewmazurek/ga-dashboard
+git clone https://github.com/matthewmazurek/ga-dashboard
 cd ga-dashboard
 ```
 
@@ -41,8 +41,9 @@ pip install -r requirements.txt
 ## Running the Dashboard
 To run the dashboard, execute:
 ```bash
-streamlit run app.py
+streamlit run app.py [checkpoint_directory]
 ```
+If a checkpoint directory is not provided, then the dashboard will look for checkpoints in `~/perturbation_screen`.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
