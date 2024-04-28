@@ -2,6 +2,7 @@ import glob
 import os
 import pickle
 import pprint
+import re
 import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeAlias
 
@@ -24,26 +25,29 @@ def load_data(checkpoint_dir: str = '.') -> tuple[str, dict] | None:
 
 def get_checkpoints(dir: str = '.') -> list[dict[str, Any]]:
 
-    pattern = 'ga_*_gen_*'
+    pattern = '*_gen_*.pkl'
     file_paths = glob.glob(os.path.join(dir, pattern))
 
     checkpoints = []
 
+    pattern = r"^(.*?)_gen_(\d+)\.pkl$"
     for file_path in file_paths:
         filename = os.path.basename(file_path)
+        match = re.match(pattern, filename)
+        if match:
+            file_id = match.group(1)
+            gen_number = int(match.group(2))
 
-        # Try to extract the identifier and generation number
-        # Assume the format is like 'ga_ident_gen_010'
-        parts = filename.split('_')
-        if len(parts) == 4 and parts[2] == 'gen':
-            id = parts[1]  # This is the identifier part
-            gen = parts[3]  # This is the generation number part
             checkpoint_dict = {
-                'id': id,
-                'gen': gen,
                 'file': file_path,
+                'id': file_id,
+                'gen': gen_number
             }
+
             checkpoints.append(checkpoint_dict)
+
+        else:
+            print(f"No match found for {filename}.")
 
     return checkpoints
 
@@ -266,7 +270,7 @@ def main():
                 data_file, data = ret
 
         if data is not None and data_file is not None:
-            print(data.keys())
+
             st.info(f'{os.path.basename(data_file)} loaded.')
 
             if 'run_parameters' in data:
